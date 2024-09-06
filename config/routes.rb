@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  root 'pages#index'
+  root 'welcome#index'
+  get 'pages' => 'pages#index'
   get 'pages/load_more'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

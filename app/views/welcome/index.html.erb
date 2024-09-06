@@ -1,0 +1,17 @@
+<!-- app/views/welcome/index.html.erb -->
+<h1>Welcome to Import Maps Example</h1>
+<button id="hello-button">Say Hello</button>
+
+<p>
+  <%= link_to 'pages', pages_path %>
+</p>
+
+<%= javascript_importmap_tags %>
+
+<script type="module">
+  import { sayHello } from "hello_controller";
+  
+  document.getElementById("hello-button").addEventListener("click", () => {
+    sayHello();
+  });
+</script>
