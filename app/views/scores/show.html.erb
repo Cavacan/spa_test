@@ -1,0 +1,31 @@
+
+<h2>User : <span id="user"><%= @score.user%></span></h2>
+<h1>Current Score: <span id="score"><%= @score.score %></span></h1>
+<button id="increaseScore">Increase Score</button>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    let score = parseInt(document.getElementById("score").innerText);
+
+    document.getElementById("increaseScore").addEventListener("click", function() {
+      score++;
+      document.getElementById("score").innerText = score;
+
+      // サーバーにスコアを送信する
+      fetch('/scores/<%= @score.id %>', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+        },
+        body: JSON.stringify({ score: { score: score } })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.error) {
+          console.error("Failed to update score:", data.error);
+        }
+      });
+    });
+  });
+</script>

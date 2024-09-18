@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
+  resources :scores, only: %i[show update]
   root 'welcome#index'
-  get 'pages' => 'pages#index'
   get 'pages/load_more'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
