@@ -12,6 +12,7 @@ body, html {
   justify-content: center;
   align-items: center;
   font-size: 2rem;
+  position: relative;
   transition: background-color 0.5s ease, color 0.5s ease;
 }
 
@@ -23,4 +24,20 @@ body, html {
 .black-bg {
   background-color: black;
   color: white;
+}
+
+/* Animated bar styling */
+.animated-bar {
+  position: absolute;
+  top: 40%;
+  right: -50%; /* 初期状態で画面外に配置 */
+  height: 30px;
+  width: 50%;
+  background-color: lightblue;
+  transition: right 1s ease; /* アニメーション効果 */
+}
+
+/* Bar active state */
+.bar-active {
+  right: 0; /* 画面右側に表示 */
 }

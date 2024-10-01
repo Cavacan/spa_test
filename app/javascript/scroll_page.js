@@ -18,6 +18,13 @@ document.addEventListener('DOMContentLoaded', () => {
             entry.target.classList.remove('black-bg');
             entry.target.classList.add('white-bg');
         }
+
+        const bar = entry.target.querySelector('.animated-bar');
+        bar.classList.add('bar-active');
+      } else {
+        // スクロールアウトした時に水色バーを元に戻す
+        const bar = entry.target.querySelector('.animated-bar');
+        bar.classList.remove('bar-active');
       }
     });
   }, options);
