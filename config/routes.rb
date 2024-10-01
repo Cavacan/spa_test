@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'scroll_page', to: "scroll_page#index"
   resources :scores, only: %i[index update]
   resources :pages, only: %i[index load_more]
   root 'welcome#index'
