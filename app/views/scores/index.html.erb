@@ -1,0 +1,76 @@
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Score</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody id="game-scores">
+    <% @game_scores.each do |score| %>
+      <tr data-id="<%= score.id %>">
+        <td><%= score.user %></td>
+        <td class="score-value"><%= score.score %></td>
+        <td>
+          <button class="increase"> + </button>
+          <button class="decrease"> - </button>
+          <button class="update">Update</button>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.increase').forEach(button => {
+      button.addEventListener('click', (event) => {
+        changeScore(event.target, 1);
+      });
+    });
+
+    document.querySelectorAll('.decrease').forEach(button => {
+      button.addEventListener('click', (event) => {
+        changeScore(event.target, -1);
+      });
+    });
+
+    document.querySelectorAll('.update').forEach(button => {
+      button.addEventListener('click', (event) => {
+        updateScore(event.target);
+      });
+    });
+
+    function changeScore(button, increment) {
+      const row = button.closest('tr');
+      const scoreCell = row.querySelector('.score-value');
+      let currentScore = parseInt(scoreCell.textContent);
+      currentScore += increment;
+      scoreCell.textContent = currentScore;
+    }
+
+    function updateScore(button) {
+      const row = button.closest('tr');
+      const scoreCell = row.querySelector('.score-value');
+      const score = parseInt(scoreCell.textContent);
+      const id = row.getAttribute('data-id');
+
+      fetch(`/scores/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: JSON.stringify({ score: score })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.status === 'success') {
+          alert('Score updated successfully!');
+        } else {
+          alert('Error: ' + data.message);
+        }
+      });
+    }
+  });
+</script>

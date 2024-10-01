@@ -1,21 +1,16 @@
 class ScoresController < ApplicationController
 
-  def show
-    @score  = GameScore.first
+  def index
+    @game_scores  = GameScore.all
   end
 
   def update
-    @score = GameScore.first
-    if @score.update(score_params)
-      render json: { score: @score.score }
+    game_score = GameScore.find(params[:id])
+    if game_score.update(score: params[:score])
+      render json: { status: 'success', score: game_score.score }
     else
-      render json: {error: 'Update failed'}, status: unprocessable_entity
+      render json: { status: "error", message: game_score.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
-  private
-
-  def score_params
-    params.require(:score).permit(:score, :user)
-  end
 end
