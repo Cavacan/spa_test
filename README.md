@@ -1,5 +1,7 @@
 # README
 
+![Sample Image](https://gyazo.com/e9cc0f1caf9c082b7463aa600b3eb05f.png)
+
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
